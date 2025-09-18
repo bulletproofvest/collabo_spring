@@ -1,7 +1,9 @@
 package com.coffee.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration // 해당 클래스를 객체로 만들어 주되, 이 파일은 설정용 파일임
@@ -12,5 +14,13 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000") // react 포트
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH") // 허용할 메소드
                 .allowCredentials(true) ; // 쿠키 전송 허용
+    }
+
+    @Value("${uploadPath}") // 이거 머길래 없으면 오류
+    private String uploadPath;
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations(uploadPath);
     }
 }
