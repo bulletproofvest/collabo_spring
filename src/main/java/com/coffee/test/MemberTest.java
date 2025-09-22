@@ -10,14 +10,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
-@SpringBootTest // 이 클래스는 간단한 테스트를 위한 용도로 사용
+@SpringBootTest // 이 클래스는 간단한 테스트를 위한 용도로 사용합니다.
 public class MemberTest {
     @Autowired // 의존하고 있는 객체를 외부에서 자동 주입합니다.
-    private MemberRepository memberRepository;
+    private MemberRepository memberRepository; // 기본 값 null
 
     @Test
     @DisplayName("회원 몇 명 추가하기")
     public void insertMemberList(){
+        // 회원 몇 명을 추가해 봅니다.
         Member mem01 = new Member();
         mem01.setName("관리자");
         mem01.setEmail("admin@naver.com");
@@ -26,8 +27,8 @@ public class MemberTest {
         mem01.setRole(Role.ADMIN);
         mem01.setRegdate(LocalDate.now());
 
-        memberRepository.save(mem01);
-        System.out.println("------------------------------");
+        memberRepository.save(mem01) ; // 데이터 베이스에 인서트
+        System.out.println("----------------------------------------");
 
         Member mem02 = new Member();
         mem02.setName("유영석");
